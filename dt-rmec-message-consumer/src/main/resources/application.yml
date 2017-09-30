@@ -1,0 +1,29 @@
+server:
+  port: 8084
+  
+spring:
+  application:
+    name: dt-rmec-message-consumer
+  cloud:
+    stream:
+      bindings:
+        dt-rmec-message:
+          destination: dt-rmec-message
+          group: dt-rmec-queue
+
+  rabbitmq:
+    addresses: amqp://localhost:5672
+    username: guest
+    password: guest
+  
+  dubbo:
+    application:
+      name: ${spring.application.name}
+    registry:
+       protocol: zookeeper
+       address: localhost:2181
+    protocol:
+      name: dubbo
+      port: ${server.port}
+    scan: org.idreamlands.dt.message.api
+    

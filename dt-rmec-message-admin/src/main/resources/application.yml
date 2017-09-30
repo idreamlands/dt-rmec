@@ -1,0 +1,21 @@
+
+# server
+server:
+  port: 8085
+  context-path: /dt-rmec-message-admin
+
+spring:
+  application:
+    name: dt-rmec-message-admin
+  freemarker:
+    request-context-attribute: request
+  dubbo:
+    application:
+      name: ${spring.application.name}
+    registry:
+       protocol: zookeeper
+       address: localhost:2181
+    protocol:
+      name: dubbo
+      port: ${server.port}
+    scan: org.idreamlands.dt.message

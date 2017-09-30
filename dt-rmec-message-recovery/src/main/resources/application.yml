@@ -1,0 +1,31 @@
+
+server:
+  port: 8083
+
+spring:
+  application:
+    name: dt-rmec-message-recovery
+  dubbo:
+    application:
+      name: ${spring.application.name}
+    registry:
+       protocol: zookeeper
+       address: localhost:2181
+    protocol:
+      name: dubbo
+      port: ${server.port}
+    scan: org.idreamlands.dt.message.api
+  
+
+#1message timeout (消息存放超过下面设置的时间才可以取出处理) ；最大发送次数；消息间隔发送时间  时间单位分
+message:
+  handle:
+    duration: 180
+  maxsend: 5
+
+  send:
+    1: 0
+    2: 1
+    3: 2
+    4: 5
+    5: 15

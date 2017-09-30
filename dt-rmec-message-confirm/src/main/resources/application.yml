@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: dt-rmec-message-confirm
+  dubbo:
+    application:
+      name: ${spring.application.name}
+    registry:
+       protocol: zookeeper
+       address: localhost:2181
+    protocol:
+      name: dubbo
+      port: ${server.port}
+    scan: org.idreamlands.dt.message.api
+
+      
+#message timeout (消息存放超过下面设置的时间才可以取出处理)
+message:
+  handle: 
+    duration: 180
