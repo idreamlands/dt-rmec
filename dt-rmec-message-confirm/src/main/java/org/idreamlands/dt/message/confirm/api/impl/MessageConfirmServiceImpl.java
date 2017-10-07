@@ -3,6 +3,7 @@ package org.idreamlands.dt.message.confirm.api.impl;
 import java.util.List;
 
 import org.idreamlands.dt.message.api.MessageService;
+import org.idreamlands.dt.message.confirm.BeanFactory;
 import org.idreamlands.dt.message.confirm.api.MessageConfirmService;
 import org.idreamlands.dt.message.confirm.api.SenderConfirmService;
 import org.idreamlands.dt.message.entity.Message;
@@ -20,7 +21,7 @@ public class MessageConfirmServiceImpl implements MessageConfirmService {
 
 	@Override
 	public void handle(List<Message> messages) {
-
+		
 		for (Message message : messages) {
 			try {
 				if (senderConfirmService.test(message)) {

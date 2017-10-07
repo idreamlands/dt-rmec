@@ -5,13 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.idreamlands.dt.MessageProperties;
 import org.idreamlands.dt.message.MessageStatusEnum;
 import org.idreamlands.dt.message.api.MessageService;
 import org.idreamlands.dt.message.dto.MessageCondition;
 import org.idreamlands.dt.message.entity.Message;
-import org.idreamlands.dt.message.recovery.RecoveryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +19,16 @@ public class ScheduledTasks {
 
 	@Autowired
 	private MessageService messageService;
-
+	
 	@Autowired
-	private RecoveryConfig config;
-
-	@Value("${message.handle.duration}")
-	private int duration;
+	private MessageProperties messageProperties;
 
 	@Scheduled(fixedRate = 15000)
 	public void handleSendingTimeOutMessage() {
 
 		MessageCondition condition = new MessageCondition();
 		condition.setStatus(MessageStatusEnum.SENDING.name());
-		condition.setCreateTime(new Date(Calendar.getInstance().getTimeInMillis() - duration * 1000));
+		condition.setCreateTime(new Date(Calendar.getInstance().getTimeInMillis() - messageProperties.getHandleduration() * 1000));
 		condition.setAreadlyDead("否");
 
 		handle(messageService.getMessagePaging(2000, 3, condition));
@@ -41,11 +37,11 @@ public class ScheduledTasks {
 
 	private void handle(List<Message> messages) {
 
-		Map<Integer, Integer> notifyParam = config.getSend();
+		Map<Integer, Integer> notifyParam = messageProperties.getTimeinterval();
 		for (Message message : messages) {
 			try {
 				// 判断发送次数
-				int maxTimes = config.getMaxsend();
+				int maxTimes = messageProperties.getMaxsendtimes();
 				// 如果超过最大发送次数直接退出 标记为死亡
 				if (maxTimes < message.getMessageSendTimes()) {
 					messageService.setToAreadlyDead(message.getMessageId());

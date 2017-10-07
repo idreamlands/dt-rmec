@@ -21,7 +21,7 @@ import com.alibaba.boot.dubbo.DubboClient;
 import com.alibaba.dubbo.config.annotation.Reference;
 
 @FeignClient(path = "/message")
-@DubboClient(protocol="dubbo", value = @Reference(timeout = 100000, version = "1.0.0"))
+@DubboClient(protocol="dubbo", value = @Reference(timeout = 10000, version = "1.0.0"))
 public interface MessageService {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)

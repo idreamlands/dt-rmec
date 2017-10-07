@@ -17,6 +17,12 @@
 			<artifactId>dt-rmec-message-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.idreamlands.dt</groupId>
+			<artifactId>dt-rmec-common-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.idreamlands.dt</groupId>

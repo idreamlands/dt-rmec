@@ -6,7 +6,10 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 
@@ -17,7 +20,9 @@ public class Message implements Serializable {
 	private static final long serialVersionUID = 1757377457814546156L;
 
 	@Id
-	String id = UUID.randomUUID().toString().replace("-", "");;
+	@GeneratedValue(generator = "messageGenerator")      
+	@GenericGenerator(name = "messageGenerator", strategy = "uuid")  
+	String id;
 
 	private Integer version = 0;
 

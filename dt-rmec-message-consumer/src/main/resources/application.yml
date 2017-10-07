@@ -25,5 +25,9 @@ spring:
     protocol:
       name: dubbo
       port: ${server.port}
-    scan: org.idreamlands.dt.message.api
+    scan: org.idreamlands.dt.message.
+  
+  dtremc:
+    message:
+      enablehttp: true
     

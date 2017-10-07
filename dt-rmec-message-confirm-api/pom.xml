@@ -14,6 +14,12 @@
 			<artifactId>dt-rmec-message-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.wu191287278</groupId>
+			<artifactId>spring-boot-starter-dubbo</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 </project>

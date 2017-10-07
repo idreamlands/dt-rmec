@@ -44,7 +44,7 @@ public class JdbcMessageServiceImpl implements MessageService {
 	@Autowired
 	private MessageRepository repo;
 
-	@Value("${message.maxsendtimes}")
+	@Value("${spring.dtrmec.message.maxsendtimes}")
 	private int maxTimes = 0;
 
 	private void sendMessage(Object body) {
@@ -191,9 +191,6 @@ public class JdbcMessageServiceImpl implements MessageService {
 		MessageCondition condition = new MessageCondition();
 		condition.setConsumerQueue(queueName);
 		condition.setAreadlyDead("是");
-		// Sort sort = new Sort(Direction.ASC, "createTime");
-
-		// List<Message> messages = getMessagePaging(numPerPage, Integer.MAX_VALUE, condition, sort);
 		List<Message> messages = getMessagePaging(numPerPage, Integer.MIN_VALUE, condition);
 
 		for (Message message : messages) {

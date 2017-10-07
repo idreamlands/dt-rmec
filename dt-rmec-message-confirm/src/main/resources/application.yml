@@ -13,10 +13,9 @@ spring:
     protocol:
       name: dubbo
       port: ${server.port}
-    scan: org.idreamlands.dt.message.api
+    scan: org.idreamlands.dt.message
 
-      
-#message timeout (消息存放超过下面设置的时间才可以取出处理)
-message:
-  handle: 
-    duration: 180
+  dtremc:
+    message:
+      handleduration: 180
+      enablehttp: true

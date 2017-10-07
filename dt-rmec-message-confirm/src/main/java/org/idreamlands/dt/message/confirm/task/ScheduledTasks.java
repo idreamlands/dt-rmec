@@ -3,12 +3,12 @@ package org.idreamlands.dt.message.confirm.task;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.idreamlands.dt.MessageProperties;
 import org.idreamlands.dt.message.MessageStatusEnum;
 import org.idreamlands.dt.message.api.MessageService;
 import org.idreamlands.dt.message.confirm.api.MessageConfirmService;
 import org.idreamlands.dt.message.dto.MessageCondition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +21,8 @@ public class ScheduledTasks {
 	@Autowired
 	private MessageService messageService;
 
-	@Value("${message.handle.duration}")
-	private int duration;
+	@Autowired 
+	MessageProperties messageProperties;
 	
 
 	@Scheduled(fixedRate = 15000)
@@ -30,7 +30,7 @@ public class ScheduledTasks {
 		
 		MessageCondition condition = new MessageCondition();
 		condition.setStatus(MessageStatusEnum.WAITING_CONFIRM.name());
-		condition.setCreateTime(new Date(Calendar.getInstance().getTimeInMillis() - duration * 1000));
+		condition.setCreateTime(new Date(Calendar.getInstance().getTimeInMillis() - messageProperties.getHandleduration() * 1000));
 
 		messageConfirmService.handle(messageService.getMessagePaging(2000, 3, condition));
 
